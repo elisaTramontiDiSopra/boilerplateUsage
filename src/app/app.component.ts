@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import '../style/global.sass';
 
 @Component({
   selector: 'app-root',

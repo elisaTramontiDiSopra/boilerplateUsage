@@ -1,9 +1,28 @@
-<div class="container">
-  <header class="main-header">
-    <img src="/images/visup-logo.png">
-    <h1>Test</h1>
-  </header>
-  <div class="row justify-content-center">
-    <div class="col-12 col-sm-6">test2</div>
+<div class="page-home">
+  <div class="container">
+    <div class="row">
+      <div class="col-12 mt-5">
+        <button class="btn btn-primary" (click)="openModal()">Primary button (open modal)</button>
+        <button class="btn btn-secondary">Secondary button</button>
+      </div>
+    </div>
   </div>
+
+  <!-- SAMPLE MODAL  -->
+  <div bsModal #myModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title pull-left">Large modal</h4>
+          <button type="button" class="close pull-right" (click)="closeModal()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        </div>
+        <div class="modal-body">
+          ...
+        </div>
+      </div>
+    </div>
+  </div>
+
 </div>
