@@ -26,7 +26,6 @@ module.exports = function() {
       modules: ['./node_modules']
     },
     entry: {
-      bootstrap: 'bootstrap-loader',
       main: [
         './src/main.ts'
       ],
@@ -35,6 +34,9 @@ module.exports = function() {
       ],
       vendor: [
         './src/vendor.ts'
+      ],
+      bootstrap: [
+        'bootstrap-loader'
       ]
     },
     output: {
@@ -52,10 +54,6 @@ module.exports = function() {
           exclude: [
             /\/node_modules\//
           ]
-        },
-        {
-          test: /\.ts$/,
-          loaders: ['awesome-typescript-loader?', 'angular2-template-loader', '@angularclass/hmr-loader'],
         },
         {
           test: /\.json$/,
@@ -78,45 +76,29 @@ module.exports = function() {
           loader: 'url-loader?name=assets/images/[name].[hash:20].[ext]&limit=10000',
           exclude: root('templates')
         },
+        // Support for CSS as raw text
+        // use 'null' loader in test mode (https://github.com/webpack/null-loader)
+        // all css in src/style will be bundled in an external css file
         {
-          exclude: [
-            path.join(process.cwd(), 'src/styles.sass')
-          ],
           test: /\.css$/,
-          loaders: [
-            'exports-loader?module.exports.toString()',
-            'css-loader?{"sourceMap":' + (isProd ? 'false' : 'true') + ',"importLoaders":1, "root": "public"}',
-            'postcss-loader'
-          ]
+          exclude: root('src', 'app'),
+          loader:  isProd ? ExtractTextPlugin.extract({ fallback: 'style-loader', use: ['css-loader', 'postcss-loader']}) : 'style-loader!css-loader!postcss-loader'
         },
+        // all css required in src/app files will be merged in js files
+        {test: /\.css$/, include: root('src', 'app'), loader: 'raw-loader!postcss-loader'},
+
+        // support for .scss files
+        // use 'null' loader in test mode (https://github.com/webpack/null-loader)
+        // all css in src/style will be bundled in an external css file
         {
-          exclude: [
-            path.join(process.cwd(), 'src/styles.sass')
-          ],
-          test: /\.scss$|\.sass$/,
-          loaders: [
-            'exports-loader?module.exports.toString()',
-            'css-loader?{"sourceMap":' + (isProd ? 'false' : 'true') + ',"importLoaders":1, "root": "public"}',
-            'postcss-loader',
-            'sass-loader'
-          ]
+          test: /\.(scss|sass)$/,
+          exclude: root('src', 'app'),
+          loader:  isProd ? ExtractTextPlugin.extract({ fallback: 'style-loader', use: ['css-loader', 'postcss-loader', 'sass-loader']}) : 'style-loader!css-loader!postcss-loader!sass-loader'
         },
-        {
-          include: [
-            path.join(process.cwd(), 'src/styles.sass')
-          ],
-          test: /\.scss$|\.sass$/,
-          loaders: ExtractTextPlugin.extract({
-            use: [
-              'css-loader?{"sourceMap":' + (isProd ? 'false' : 'true') + ',"importLoaders":1, "root": "public"}',
-              'postcss-loader',
-              'sass-loader'
-            ],
-            fallback: 'style-loader',
-            publicPath: ''
-          })
-        },
-        { test: /bootstrap[/\\]dist[/\\]js[/\\]umd[/\\]/, loader: 'imports-loader?jQuery=jquery' }
+        // all css required in src/app files will be merged in js files
+        {test: /\.(scss|sass)$/, exclude: root('src', 'style'), loader: 'raw-loader!postcss-loader!sass-loader'},
+
+
       ]
     },
     plugins: [
@@ -177,19 +159,6 @@ module.exports = function() {
         filename: 'assets/css/[name].bundle.css',
         disable: !isProd
       }),
-      new LoaderOptionsPlugin({
-        sourceMap: !isProd,
-        options: {
-          postcss: [
-            autoprefixer()
-          ],
-          sassLoader: {
-            sourceMap: !isProd,
-            includePaths: []
-          },
-          context: ''
-        }
-      }),
       new webpack.DefinePlugin({
         // Environment helpers
         PRODUCTION: isProd
@@ -207,7 +176,10 @@ module.exports = function() {
       setImmediate: false
     },
     devServer: {
-      contentBase: './src/public'
+      contentBase: './src/public',
+      historyApiFallback: true,
+      quiet: true,
+      stats: 'minimal' // none (or false), errors-only, minimal, normal (or true) and verbose
     }
   };
 
@@ -223,12 +195,13 @@ module.exports = function() {
         exclude: [],
         tsConfigPath: 'tsconfig.json',
         skipCodeGeneration: false
-      }),
-      new CopyWebpackPlugin([{
-        from: root('src/public/templates'), to: 'templates'
-        }
-      ])
+      })
     );
+  } else {
+    config.module.rules.push({
+      test: /\.ts$/,
+      loaders: ['awesome-typescript-loader?', 'angular2-template-loader', '@angularclass/hmr-loader']
+    })
   }
 
   return config;

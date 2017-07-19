@@ -10,9 +10,9 @@ useFlexbox: true
 
 # Webpack loaders, order matters
 styleLoaders:
-  - style
-  - css
-  - postcss
+  - style?sourceMap
+  - css?sourceMap
+  - postcss?sourceMap
   - sass
 
 # Extract styles to stand-alone css file
