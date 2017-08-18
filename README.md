@@ -1,9 +1,18 @@
 # Angular 4 boilerplate
-This boilerplate includes webpack as module bundler, angular 4 with AOT and bootstrap 4.  
-Boilerplate includes:
+This boilerplate includes:  
 
+* [Webpack](https://webpack.github.io/) as module bundler
+* Angular 4 with AOT
+* [Bootstrap 4](https://v4-alpha.getbootstrap.com/getting-started/introduction/) as responsive framework
 * [angular2-ladda](https://github.com/moff/angular2-ladda) for loading indicators 
 * [angular2-moment](https://github.com/urish/angular2-moment) for dates parsing and manipulation
+
+Typescript is used instead of plain javascript for a bunch of reasons including:
+
+* Angular2/4 is meant to be used with typescript. AOT won't even work without it.
+* As a replacement for [babel](https://babeljs.io/) to transpile ES6 features.
+* Autocomplete
+* Optional typing
 
 ## Development setup
 
