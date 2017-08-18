@@ -72,7 +72,7 @@ module.exports = function() {
           loader: 'file-loader?name=assets/images/[name].[hash:20].[ext]'
         },
         {
-          test: /\.(jpg|png|gif|otf|ttf|woff|woff2|cur|ani)$/,
+          test: /\.(jpg|png|gif|otf|ttf|woff|woff2|cur|ani)(\?.*$|$)$/,
           loader: 'url-loader?name=assets/images/[name].[hash:20].[ext]&limit=10000',
           exclude: root('templates')
         },
@@ -162,7 +162,11 @@ module.exports = function() {
       new webpack.DefinePlugin({
         // Environment helpers
         PRODUCTION: isProd
-      })
+      }),
+      new webpack.ContextReplacementPlugin(
+        /angular(\\|\/)core(\\|\/)@angular/,
+        root('src')
+      )
     ],
     node: {
       fs: 'empty',
