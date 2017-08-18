@@ -1,6 +1,9 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { FormsModule }   from '@angular/forms';
 import { ModalModule } from 'ngx-bootstrap/modal';
+import { LaddaModule } from 'angular2-ladda';
+import { MomentModule } from 'angular2-moment';
 
 import { AppComponent } from './app.component';
 import { routing } from './app.routing';
@@ -18,14 +21,17 @@ import { FooterComponent } from './components/footer/footer.component';
     AppComponent,
     HomeComponent,
     LoginComponent,
-    
+
     HeaderComponent,
     FooterComponent
   ],
   imports: [
     BrowserModule,
+    FormsModule,
     routing,
-    ModalModule.forRoot()
+    ModalModule.forRoot(),
+    LaddaModule,
+    MomentModule
   ],
   providers: [],
   bootstrap: [AppComponent]

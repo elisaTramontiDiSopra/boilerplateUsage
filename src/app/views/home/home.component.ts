@@ -7,6 +7,7 @@ import { ModalDirective } from 'ngx-bootstrap/modal';
 })
 export class HomeComponent {
   @ViewChild('myModal') public myModal: ModalDirective;
+  date: Date = new Date();
 
   openModal() {
     this.myModal.show();
