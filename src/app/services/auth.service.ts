@@ -14,12 +14,12 @@ export class AuthService {
   //   this.user = user;
   // }
 
-  // login(data) {
-  //   return this.http.post(`${ApiBaseUrl}/login`, data).map(user => {
-  //     this.setUser(user.json());
-  //     return user.json()
-  //   });
-  // }
+  login(data) {
+    return this.http.post(`${ApiBaseUrl}/login`, data).map(user => {
+      // this.setUser(user.json());
+      // return user.json()
+    });
+  }
 
   // logout() {
   //   localStorage.removeItem('user');

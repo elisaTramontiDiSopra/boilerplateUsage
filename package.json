@@ -70,7 +70,7 @@
     "bootstrap": "4.0.0-alpha.6",
     "core-js": "~2.4.0",
     "mdi": "^1.9.33",
-    "ng2-toastr": "^4.1.0",
+    "ng2-toastr": "^4.1.2",
     "ngx-bootstrap": "^1.7.1",
     "rxjs": "^5.4.2",
     "webfontloader": "^1.6.27",

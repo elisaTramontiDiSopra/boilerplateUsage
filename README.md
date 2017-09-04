@@ -6,7 +6,8 @@ This boilerplate includes:
 * [Bootstrap 4](https://v4-alpha.getbootstrap.com/getting-started/introduction/) as responsive framework
 * [angular2-ladda](https://github.com/moff/angular2-ladda) for loading indicators 
 * [angular2-moment](https://github.com/urish/angular2-moment) for dates parsing and manipulation
-
+* [ng2-toastr](https://github.com/PointInside/ng2-toastr) for bootstrap-like toasts
+* loading spinner service
 Typescript is used instead of plain javascript for a bunch of reasons including:
 
 * Angular2/4 is meant to be used with typescript. AOT won't even work without it.
