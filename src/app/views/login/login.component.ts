@@ -8,6 +8,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class LoginComponent {
   user: any = {}
+  isLoading: boolean;
 
   constructor(
     private auth: AuthService,

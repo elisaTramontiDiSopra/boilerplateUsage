@@ -37,6 +37,9 @@ Angular AOT compiler is used to have a smaller and faster build. Otherwise with 
 
 Plus with AOT a lot of errors are discovered during the build process instead of runtime.
 
+To test build on a mac, install `local-web-server` and run it in /dist folder with
+`ws --spa --static.index index.html`
+
 ### Coding
 Use a typescript aware editor like [visual studio code](https://code.visualstudio.com/)(best) or install a typescript plugin and linter extensions to [atom](https://atom.io/), webstorm or sublime.
 

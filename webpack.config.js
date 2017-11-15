@@ -7,7 +7,7 @@ const webpack = require('webpack');
 
 const { NoEmitOnErrorsPlugin, LoaderOptionsPlugin } = require('webpack');
 const { CommonsChunkPlugin } = require('webpack').optimize;
-const { AotPlugin } = require('@ngtools/webpack');
+const { AngularCompilerPlugin } = require('@ngtools/webpack');
 
 const nodeModules = path.join(process.cwd(), 'node_modules');
 const entryPoints = ["inline","polyfills","sw-register","vendor","main"];
@@ -34,9 +34,6 @@ module.exports = function() {
       ],
       vendor: [
         './src/vendor.ts'
-      ],
-      bootstrap: [
-        'bootstrap-loader'
       ]
     },
     output: {
@@ -163,10 +160,10 @@ module.exports = function() {
         // Environment helpers
         PRODUCTION: isProd
       }),
-      new webpack.ContextReplacementPlugin(
-        /angular(\\|\/)core(\\|\/)@angular/,
+      new webpack.ContextReplacementPlugin(/\@angular(\\|\/)core(\\|\/)esm5/,
         root('src')
-      )
+      ),
+
     ],
     node: {
       fs: 'empty',
@@ -194,7 +191,7 @@ module.exports = function() {
     }),
     config.plugins.push(
       new webpack.optimize.UglifyJsPlugin(),
-      new AotPlugin({
+      new AngularCompilerPlugin({
         mainPath: './src/main.ts',
         exclude: [],
         tsConfigPath: 'tsconfig.json',
