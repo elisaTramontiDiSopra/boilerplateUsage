@@ -1,6 +1,6 @@
-import { Component, ViewContainerRef } from '@angular/core';
+import { Component } from '@angular/core';
 import { AuthService, LoadingService } from 'app';
-import { ToastsManager } from 'ng2-toastr';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   templateUrl: './login.component.html',
@@ -12,10 +12,8 @@ export class LoginComponent {
   constructor(
     private auth: AuthService,
     private loadingService: LoadingService,
-    private vcr: ViewContainerRef,
-    private toaster: ToastsManager
+    private toaster: ToastrService
   ) {
-    this.toaster.setRootViewContainerRef(vcr);
   }
 
   login() {

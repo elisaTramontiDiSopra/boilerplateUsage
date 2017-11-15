@@ -1,6 +1,6 @@
-import { Component, ViewChild, ViewContainerRef } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { ModalDirective } from 'ngx-bootstrap/modal';
-import { ToastsManager } from 'ng2-toastr/ng2-toastr';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   templateUrl: './home.component.html',
@@ -11,10 +11,8 @@ export class HomeComponent {
   date: Date = new Date();
 
   constructor(
-    private vcr: ViewContainerRef,
-    private toaster: ToastsManager
+    private toaster: ToastrService
   ) {
-    this.toaster.setRootViewContainerRef(vcr);
   }
 
   openModal() {

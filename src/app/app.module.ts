@@ -6,8 +6,7 @@ import { HttpModule }   from '@angular/http';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { LaddaModule } from 'angular2-ladda';
 import { MomentModule } from 'angular2-moment';
-import { ToastModule, ToastsManager } from 'ng2-toastr';
-import { CustomToastOptions } from './toast-options';
+import { ToastrModule } from 'ngx-toastr';
 import { AppComponent } from './app.component';
 import { routing } from './app.routing';
 import { AuthService } from 'app';
@@ -43,12 +42,13 @@ import { LoadingService } from './services/loading.service';
     ModalModule.forRoot(),
     LaddaModule,
     MomentModule,
-    ToastModule.forRoot()
+    ToastrModule.forRoot({
+      positionClass: 'toast-center' // visup custom class
+    })
   ],
   providers: [
     AuthService,
     LoadingService,
-    { provide: ToastsManager, useClass: CustomToastOptions },
   ],
   bootstrap: [AppComponent]
 })
