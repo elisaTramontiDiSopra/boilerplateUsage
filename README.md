@@ -1,16 +1,17 @@
-# Angular 4 boilerplate
+# Angular 5 boilerplate
 This boilerplate includes:  
 
-* [Webpack](https://webpack.github.io/) as module bundler
-* Angular 4 with AOT
+* [Webpack](https://webpack.github.io/) as module bundler with [HMR](https://webpack.js.org/concepts/hot-module-replacement/)
+* Angular 5 with AOT
 * [Bootstrap 4](https://v4-alpha.getbootstrap.com/getting-started/introduction/) as responsive framework
+* [ngx-bootstrap](https://valor-software.com/ngx-bootstrap) for bootstrap components
 * [angular2-ladda](https://github.com/moff/angular2-ladda) for loading indicators 
 * [angular2-moment](https://github.com/urish/angular2-moment) for dates parsing and manipulation
-* [ng2-toastr](https://github.com/PointInside/ng2-toastr) for bootstrap-like toasts
+* [ngx-toastr](https://github.com/scttcper/ngx-toastr) for bootstrap-like toasts
 * loading spinner service
 Typescript is used instead of plain javascript for a bunch of reasons including:
 
-* Angular2/4 is meant to be used with typescript. AOT won't even work without it.
+* Angular2+ is meant to be used with typescript. AOT won't even work without it.
 * As a replacement for [babel](https://babeljs.io/) to transpile ES6 features.
 * Autocomplete
 * Optional typing
@@ -28,7 +29,8 @@ Typescript is used instead of plain javascript for a bunch of reasons including:
 
 ### Start
 
-Run `yarn start` to start the development server with auto reload and all the bells and whistles
+Run `yarn start` to start the development server with auto reload
+Run `yarn start:hmr` to start the development server with **hot module replacement (HMR)**
 
 ### Build
 
@@ -37,8 +39,8 @@ Angular AOT compiler is used to have a smaller and faster build. Otherwise with 
 
 Plus with AOT a lot of errors are discovered during the build process instead of runtime.
 
-To test build on a mac, install `local-web-server` and run it in /dist folder with
-`ws --spa --static.index index.html`
+### Test the build
+`yarn run preview`
 
 ### Coding
 Use a typescript aware editor like [visual studio code](https://code.visualstudio.com/)(best) or install a typescript plugin and linter extensions to [atom](https://atom.io/), webstorm or sublime.

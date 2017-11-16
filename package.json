@@ -1,13 +1,14 @@
 {
-  "name": "angular-boilerplate",
-  "version": "1.0.0",
-  "author": "Alessandro Tagliapietra <tagliapietra.alessandro@gmail.com>",
+  "name": "ngx-boilerplate",
+  "version": "0.1.0",
+  "author": "Andrea Grossetti <andrea_grossetti@yahoo.it>",
   "license": "MIT",
   "scripts": {
-    "build": "rimraf dist && webpack --progress --profile",
-    "server": "webpack-dev-server --inline --port 3000",
+    "build": "rimraf dist && webpack --config webpack.prod.config.js --env.production --progress --profile",
+    "preview": "npm run build && cd dist && ws --spa --static.index index.html",
+    "server": "webpack-dev-server --env.development --env.PORT=3000 --config webpack.dev.config.js",
     "start": "npm run server",
-    "start:hmr": "npm run server -- --hot"
+    "start:hmr": "npm run server -- --hot --env.HMR"
   },
   "devDependencies": {
     "@angular/compiler-cli": "^5.0.1",
@@ -26,7 +27,8 @@
     "file-loader": "^1.1.5",
     "html-loader": "^0.5.1",
     "html-webpack-plugin": "^2.29.0",
-    "node-sass": "~4.5.0",
+    "local-web-server": "^2.3.0",
+    "node-sass": "^4.6.1",
     "postcss-loader": "^2.0.5",
     "raw-loader": "~0.5.0",
     "resolve-url-loader": "^2.1.0",
@@ -39,7 +41,8 @@
     "typescript": "^2.6.1",
     "url-loader": "~0.5.0",
     "webpack": "^3.8.1",
-    "webpack-dev-server": "^2.9.4"
+    "webpack-dev-server": "^2.9.4",
+    "webpack-merge": "^4.1.1"
   },
   "dependencies": {
     "@angular/animations": "^5.0.1",
@@ -55,7 +58,7 @@
     "angular2-moment": "^1.6.0",
     "bootstrap": "4.0.0-beta.2",
     "core-js": "~2.4.0",
-    "mdi": "^1.9.33",
+    "mdi": "^2.0.46",
     "ngx-bootstrap": "^2.0.0-beta.8",
     "ngx-toastr": "^6.5.0",
     "rxjs": "^5.5.2",

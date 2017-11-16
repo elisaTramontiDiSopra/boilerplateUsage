@@ -1,23 +1,17 @@
 const path = require('path');
-const ProgressPlugin = require('webpack/lib/ProgressPlugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const autoprefixer = require('autoprefixer');
 const webpack = require('webpack');
-
-const { NoEmitOnErrorsPlugin, LoaderOptionsPlugin } = require('webpack');
+const { ProvidePlugin, ProgressPlugin, DefinePlugin, ContextReplacementPlugin } = require('webpack');
 const { CommonsChunkPlugin } = require('webpack').optimize;
-const { AngularCompilerPlugin } = require('@ngtools/webpack');
 
 const nodeModules = path.join(process.cwd(), 'node_modules');
-const entryPoints = ["inline","polyfills","sw-register","vendor","main"];
+const entryPoints = ['inline','polyfills','sw-register','vendor','main'];
 
-const ENV = process.env.npm_lifecycle_event;
-const isProd = ENV === 'build';
 
-module.exports = function() {
+function buildConfig(env) {
   const config = {
-    devtool: isProd ? 'nosources-source-map' : 'eval-source-map',
     resolve: {
       extensions: ['.ts', '.js'],
       modules: [path.join(process.cwd(), 'src'), './node_modules']
@@ -38,68 +32,56 @@ module.exports = function() {
     },
     output: {
       path: path.join(process.cwd(), 'dist'),
-      filename: isProd ? 'assets/js/[name].[hash].js' : 'assets/js/[name].js',
-      chunkFilename: isProd ? '[id].[hash].chunk.js' : '[id].chunk.js',
       publicPath: '/'
     },
     module: {
       rules: [
         {
-          enforce: 'pre',
-          test: /\.js$/,
-          loader: 'source-map-loader',
-          exclude: [
-            /\/node_modules\//
-          ]
-        },
-        {
           test: /\.json$/,
-          loader: 'json-loader'
+          use: 'json-loader'
         },
         {
           test: /\.html$/,
-          loader: 'html-loader',
-          options: {
-            root: path.resolve(__dirname, 'src/public')
-          },
+          use: [{
+            loader: 'html-loader',
+            options: {
+              root: path.resolve(__dirname, 'src/public')
+            }
+          }],
           exclude: [root('src', 'public'), root('templates')]
         },
         {
           test: /\.(eot|svg)$/,
-          loader: 'file-loader?name=assets/images/[name].[hash:20].[ext]'
+          use: 'file-loader?name=assets/images/[name].[hash:20].[ext]'
         },
         {
           test: /\.(jpg|png|gif|otf|ttf|woff|woff2|cur|ani)(\?.*$|$)$/,
-          loader: 'url-loader?name=assets/images/[name].[hash:20].[ext]&limit=10000',
+          use: 'url-loader?name=assets/images/[name].[hash:20].[ext]&limit=10000',
           exclude: root('templates')
         },
-        // Support for CSS as raw text
-        // use 'null' loader in test mode (https://github.com/webpack/null-loader)
-        // all css in src/style will be bundled in an external css file
+        // all css required in src/app files will be merged in js files
         {
           test: /\.css$/,
-          exclude: root('src', 'app'),
-          loader:  isProd ? ExtractTextPlugin.extract({ fallback: 'style-loader', use: ['css-loader', 'postcss-loader']}) : 'style-loader!css-loader!postcss-loader'
+          include: root('src', 'app'),
+          use: [
+            { loader: 'raw-loader' },
+            { loader: 'postcss-loader' }
+          ]
         },
         // all css required in src/app files will be merged in js files
-        {test: /\.css$/, include: root('src', 'app'), loader: 'raw-loader!postcss-loader'},
-
-        // support for .scss files
-        // use 'null' loader in test mode (https://github.com/webpack/null-loader)
-        // all css in src/style will be bundled in an external css file
         {
           test: /\.(scss|sass)$/,
-          exclude: root('src', 'app'),
-          loader:  isProd ? ExtractTextPlugin.extract({ fallback: 'style-loader', use: ['css-loader', 'postcss-loader', 'sass-loader']}) : 'style-loader!css-loader!postcss-loader!sass-loader'
-        },
-        // all css required in src/app files will be merged in js files
-        {test: /\.(scss|sass)$/, exclude: root('src', 'style'), loader: 'raw-loader!postcss-loader!sass-loader'},
-
-
+          exclude: root('src', 'style'),
+          use: [
+            { loader: 'raw-loader' },
+            { loader: 'postcss-loader' },
+            { loader: 'sass-loader' }
+          ]
+        }
       ]
     },
     plugins: [
-      new webpack.ProvidePlugin({
+      new ProvidePlugin({
         $: 'jquery',
         jQuery: 'jquery',
         'window.jQuery': 'jquery',
@@ -152,15 +134,11 @@ module.exports = function() {
           'main'
         ]
       }),
-      new ExtractTextPlugin({
-        filename: 'assets/css/[name].bundle.css',
-        disable: !isProd
-      }),
-      new webpack.DefinePlugin({
+      new DefinePlugin({
         // Environment helpers
-        PRODUCTION: isProd
+        PRODUCTION: env.production
       }),
-      new webpack.ContextReplacementPlugin(/\@angular(\\|\/)core(\\|\/)esm5/,
+      new ContextReplacementPlugin(/\@angular(\\|\/)core(\\|\/)esm5/,
         root('src')
       ),
 
@@ -175,41 +153,16 @@ module.exports = function() {
       module: false,
       clearImmediate: false,
       setImmediate: false
-    },
-    devServer: {
-      contentBase: './src/public',
-      historyApiFallback: true,
-      quiet: true,
-      stats: 'minimal' // none (or false), errors-only, minimal, normal (or true) and verbose
     }
   };
 
-  if (isProd) {
-    config.module.rules.push({
-      test: /\.ts$/,
-      loader: ['@ngtools/webpack', 'angular2-template-loader']
-    }),
-    config.plugins.push(
-      new webpack.optimize.UglifyJsPlugin(),
-      new AngularCompilerPlugin({
-        mainPath: './src/main.ts',
-        exclude: [],
-        tsConfigPath: 'tsconfig.json',
-        skipCodeGeneration: false
-      })
-    );
-  } else {
-    config.module.rules.push({
-      test: /\.ts$/,
-      loaders: ['awesome-typescript-loader?', 'angular2-template-loader', '@angularclass/hmr-loader']
-    })
-  }
-
   return config;
-}()
+}
 
 // Helper functions
 function root(args) {
   args = Array.prototype.slice.call(arguments, 0);
   return path.join.apply(path, [__dirname].concat(args));
 }
+
+module.exports = buildConfig
