@@ -17,6 +17,9 @@
 .higher
   height: 120px
   background-color: #ddd
+.fullHigh
+  @extend .higher
+  height: 100vh
 
 //COLUMNS
 .colRed
@@ -30,6 +33,9 @@
 
 .colGreen
   background-color: $green
+
+.colPurple
+  background-color: $purple
 
 //TWEAK FOR MOBILE
 @include media-breakpoint-up(sx)

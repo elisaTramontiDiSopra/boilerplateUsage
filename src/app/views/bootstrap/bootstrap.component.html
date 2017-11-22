@@ -240,6 +240,60 @@
 
 
 </div>
+
+
+<!-- ORDER -->
+<div class="container">
+  <h1>Order</h1>
+
+  <!--
+    if I don't specify sm the order-md get's applied only to MD up
+  -->
+
+  <p>Changes order in MD, SM and SX</p>
+  <div class="row ">
+
+    <div class="col order-md-1 order-sm-3 order-2 colGreen">
+      <p>order 1 MD, 3 SM, 2 SX</p>
+    </div>
+
+    <div class="col order-md-2 order-sm-1 order-3 colBlue">
+      <p>order 2 MD, 1 SM, 3 SX</p>
+    </div>
+
+    <div class="col order-md-3 order-sm-2 order-1 colPurple">
+      <p>order 3 MD, 2 SM, 1 SX</p>
+    </div>
+
+  </div>
+
+  <p>More complex changing order col-12 in SX</p>
+  <div class="row fullHigh justify-content-between">
+
+    <div class="col-12 order-1 order-sm-1 colYellow">
+      <p>full yellow row | 1 SX, 1 SM</p>
+    </div>
+
+    <div class="col-sm-8 offset-sm-2 order-3 order-sm-2 colBlue">
+      <p>col-8 centered | 3 SX, 2 SM</p>
+    </div>
+
+    <!-- Force next columns to break to new line -->
+    <div class="w-100"></div>
+
+    <div class="col-2 offset-5 order-4 order-sm-3 colGreen">
+      <p>col-2 centered | 4 SX, 3 SM</p>
+    </div>
+
+    <div class="col-sm-3 order-2 order-sm-4 colPurple">
+      <p>col-3 right | 2 SX, 4 SM</p>
+    </div>
+
+  </div>
+</div>
+
+
+
 <!-- ICONS -->
 
 <!-- TOOLTIPS -->
