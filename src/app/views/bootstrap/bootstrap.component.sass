@@ -1,5 +1,5 @@
 @import ~style/variables
-@import ~style/
+@import ~style/bootstrap
 
 
 \:host
@@ -14,6 +14,9 @@
 //BOOTSTRAP TWEAKS JUST FOR THIS
 .row
   margin-bottom: 35px
+.higher
+  height: 120px
+  background-color: #ddd
 
 //COLUMNS
 .colRed
@@ -29,6 +32,20 @@
   background-color: $green
 
 //TWEAK FOR MOBILE
-@include media-breakpoint-up(sm)
+@include media-breakpoint-up(sx)
   .colBlue
     background-color: $yellow
+
+//TWEAK FOR TABLET
+@include media-breakpoint-up(sm)
+  .colBlue
+    background-color: $red
+
+//TWEAK FOR DESKTOP
+@include media-breakpoint-up(md)
+  .colBlue
+    background-color: $blue
+
+
+
+//CUSTOMIZE BREAKPOINT

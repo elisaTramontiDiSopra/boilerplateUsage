@@ -1,10 +1,13 @@
 <!-- DIFFERENT CLASSES -->
 <div class="container">
+  <p>Change sm md col dimensions</p>
   <div class="row">
 
     <!--
-      'col-'    is for sm
+      'col-'    is for everything
+                (if I specify md col covers md-down so sx)
       'col-md'  is for md
+      if not specified col (sx) goes to 12
     -->
 
     <div class="col-md-6 col-2 colGreen">
@@ -18,8 +21,31 @@
   </div>
 </div>
 
+<!-- DIFFERENT CLASSES -->
+<div class="container">
+  <p>Change sm md col dimensions</p>
+  <div class="row">
+
+    <!--
+        'col-'    is for everything (if I specify md md it's for md up) I CAN USE IT FOR SX
+        'col-md'  is for md
+        if not specified col (sx) goes to 12
+      -->
+
+    <div class="col-2 col-md-7 colGreen">
+      <p>Colonna 1</p>
+    </div>
+
+    <div class="col-10 col-md-5 colBlue">
+      <p>Colonna 2</p>
+    </div>
+
+  </div>
+</div>
+
 <!-- FULL CONTAINER -->
 <div class="container-fluid">
+  <p>Full container</p>
   <div class="row">
 
     <div class="col-md-6 col-2 colGreen">
@@ -33,14 +59,125 @@
   </div>
 </div>
 
+<!-- NO GUTTERS -->
+<div class="container">
+  <p>No gutters Row (with gutters margin == 0, with gutter margins = -15/15px) </p>
+  <div class="row no-gutters">
+
+    <div class="col-md-6 col-2 colGreen">
+      <p>Colonna 1</p>
+    </div>
+
+    <div class="col-md-6 col-10 colBlue">
+      <p>Colonna 2</p>
+    </div>
+
+  </div>
+</div>
+
+<!-- COL-BREAKPINT-AUTO -->
+<div class="container">
+  <h1>col-breakpoint-auto</h1>
+
+  <!--
+    use with caution, when in sm or sx tends to get 12 width
+  -->
+
+  <p>No col-md-auto only col</p>
+  <div class="row">
+
+    <div class="col colGreen">
+      <p>Colonna 1</p>
+    </div>
+
+    <div class="col colBlue">
+      <p>Same html without col-md-auto</p>
+    </div>
+
+    <div class="col colYellow">
+      <p>Colonna 3</p>
+    </div>
+
+  </div>
+
+  <p>col-md-auto only on mid column, col on all others</p>
+  <div class="row">
+
+    <div class="col colGreen">
+      <p>Colonna 1</p>
+    </div>
+
+    <div class="col-md-auto colBlue">
+      <p>Colonna 2 it's supposed to be longer</p>
+    </div>
+
+    <div class="col colYellow">
+      <p>Colonna 3</p>
+    </div>
+
+  </div>
+
+  <p>col-md-auto on all columns</p>
+  <div class="row">
+
+    <div class="col-md-auto colGreen">
+      <p>Colonna 1</p>
+    </div>
+
+    <div class="col-md-auto colBlue">
+      <p>Colonna 2 it's supposed to be longer</p>
+    </div>
+
+    <div class="col-md-auto colYellow">
+      <p>Colonna 3</p>
+    </div>
+
+  </div>
+
+
+</div>
+
 <!-- MOVE DIVS IN MOBILE -->
+
+
+
+
+<!-- ROW VERTICAL ALIGNMENT -->
+<div class="container">
+  <h1>Vertical align-items</h1>
+
+  <p>Align goes to row for the whole row align-items-start/center/end or align-SELF-start/center/end for the single element</p>
+  <div class="row higher">
+
+    <div class="col colGreen align-self-start">
+      <p>align-self-start</p>
+    </div>
+
+    <div class="col colBlue align-self-center" >
+      <p>align-self-center</p>
+    </div>
+
+    <div class="col colYellow align-self-end">
+      <p>align-self-end</p>
+    </div>
+
+  </div>
+
+
+</div>
+
+
 
 <!-- ICONS -->
 
 <!-- TOOLTIPS -->
+
+<!-- VIDEO -->
 
 <!-- TIME AND DATE -->
 
 <!-- CARUSEL -->
 
 <!-- DROPDOWNS -->
+
+<!-- SPACE BETWEEN COLUMNS -->
